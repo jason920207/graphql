@@ -1,7 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { Home } from './pages'
+import {
+    ApolloClient,
+    InMemoryCache,
+    ApolloProvider,
+    useQuery,
+    gql
+} from "@apollo/client";
 
-const App = () => <h1>You should see a red color text here</h1>;
+const client = new ApolloClient({
+    uri: 'http://localhost:5000/graphql',
+    cache: new InMemoryCache()
+});
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const App = () => (
+    <Home />
+)
+
+ReactDOM.render(
+    <ApolloProvider client={client}>
+        <App />
+    </ApolloProvider>, document.getElementById('root'));
